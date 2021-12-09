@@ -1,0 +1,71 @@
+
+
+.pos .pos-receipt-container-custom {
+    font-size: 0.75em;
+    text-align: center;
+    direction: ltr;
+}
+
+.pos .pos-receipt-container-custom > div {
+    text-align: left;
+    width: 300px;
+    background-color: white;
+    margin: 20px;
+    padding: 15px;
+    font-size: 16px;
+    padding-bottom:30px;
+    display: inline-block;
+    border: solid 1px rgb(220,220,220);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    .pos, .pos * {
+        position: static !important;
+    }
+    .pos .receipt-screen .pos-receipt-container-custom {
+        position: absolute !important;
+        top: 0;
+        left: 0;
+    }
+    .pos .receipt-screen .pos-receipt-container-custom, .pos .receipt-screen .pos-receipt-container-custom  * {
+        visibility: visible;
+        background: white !important;
+        color: black !important;
+    }
+    .pos .pos-receipt {
+        margin: 0 !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        border: none !important;
+        font-size: 13px !important;
+        width: 266px !important;
+    }
+}
+
+
+.receipt-screen .default-view .pos-receipt-container-custom {
+    flex: 0 1 400px;
+    overflow: auto;
+}
+
+@media screen and (max-width: 768px) {
+    .receipt-screen .default-view {
+        flex-direction: column-reverse;
+        overflow: auto;
+    }
+    .receipt-screen .default-view .actions {
+        flex: 0;
+    }
+    .receipt-screen .default-view .actions h1 {
+        margin-bottom: 1.5rem;
+    }
+    .receipt-screen .default-view .pos-receipt-container-custom {
+        flex: 1;
+        overflow: visible;
+    }
+}

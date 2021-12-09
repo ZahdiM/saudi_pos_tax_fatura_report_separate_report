@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="TaxInvoiceReceipt" owl="1">
+        <div class="pos-receipt" style="text-align: left;
+                                        width: 300px;
+                                        background-color: white;
+                                        margin: 20px;
+                                        padding: 15px;
+                                        font-size: 16px;
+                                        padding-bottom: 30px;
+                                        display: inline-block;
+                                        /* border: solid 1px rgb(220,220,220); */
+                                        border-radius: 3px;
+                                        overflow: hidden;">
+            <t t-if="receipt.company.logo">
+                <img style="width: 50%;
+                            display: block;
+                            margin: 0 auto;"
+                     class="pos-receipt-logo" t-att-src="receipt.company.logo" alt="Logo"/>
+                <br/>
+            </t>
+            <t t-if="!receipt.company.logo">
+                <h2  style="text-align: center;" class="pos-receipt-center-align">
+                    <t t-esc="receipt.company.name" />
+                </h2>
+                <br/>
+            </t>
+            <div  class="pos-receipt-contact" style="text-align: center;
+                        font-size: 75%;">
+                <t t-if="receipt.company.contact_address">
+                    <div><t t-esc="receipt.company.contact_address" /></div>
+                </t>
+                <t t-if="receipt.company.phone">
+                    <div>Tel:<t t-esc="receipt.company.phone" /></div>
+                </t>
+                <t t-if="receipt.company.vat">
+                    <div><t t-esc="receipt.company.vat_label"/>:<t t-esc="receipt.company.vat" /></div>
+                </t>
+                <t t-if="receipt.company.email">
+                    <div><t t-esc="receipt.company.email" /></div>
+                </t>
+                <t t-if="receipt.company.website">
+                    <div><t t-esc="receipt.company.website" /></div>
+                </t>
+                <t t-if="receipt.header_html">
+                    <t t-raw="receipt.header_html" />
+                </t>
+                <t t-if="!receipt.header_html and receipt.header">
+                    <div><t t-esc="receipt.header" /></div>
+                </t>
+                <t t-if="receipt.cashier">
+                    <div class="cashier">
+                        <div>--------------------------------</div>
+                        <div>Served by <t t-esc="receipt.cashier" /></div>
+                    </div>
+                </t>
+            </div>
+
+            <div class="pos-receipt-contact" style="text-align: center;
+                                                    font-size: 75%;">
+                <h4 style="margin-bottom:0;">فاتورة ضريبية مبسطة</h4>
+                <h4 style="margin-top:3px;margin-bottom:0;">Simplified Tax Invoice</h4>
+            </div>
+            <hr/>
+
+            <!-- Seller Details -->
+
+            <div class="orderlines">
+                <table width="100%">
+                    <tr>
+                        <td width="20%"><span style="font-size:11px;font-weight:bold;"><b>Invoice Number:</b></span></td>
+                        <td width="30%" style="font-size:11px;">
+                            <span style="font-size:13px" id="invoice_number"><t t-esc="receipt.name"/></span>
+                        </td>
+                        <td width="30%" style="font-size:11px;"><span id="invoice_number1" style="font-size:11px"><t t-esc="receipt.name"/></span></td>
+                        <td width="20%"><span style="font-size:11px;font-weight:bold;">:رقم الفاتورة</span></td>
+                    </tr>
+                    <tr>
+                        <td width="20%"><span style="font-size:11px;font-weight:bold;"><b>Invoice Issue Date:</b></span></td>
+                        <td width="30%" style="font-size:11px;">
+                            <t t-esc="receipt.date.localestring"/>
+                        </td>
+                        <td width="30%" style="font-size:11px;">
+                            <t t-esc="receipt.date.localestring"/>
+                        </td>
+                        <td width="20%"><span style="font-size:11px;font-weight:bold;">:تاريخ إصدار الفاتورة</span></td>
+                    </tr>
+                    <tr>
+                        <td width="20%"><span style="font-size:11px;font-weight:bold;"><b>Name:</b></span></td>
+                        <td width="30%" style="font-size:11px;">
+                            <t t-if="receipt.company.name" t-esc="receipt.company.name"/>
+                        </td>
+                        <td width="30%" style="font-size:11px;">
+                            <t t-if="receipt.company.name" t-esc="receipt.company.name"/>
+                        </td>
+                        <td width="20%"><span style="font-size:11px;font-weight:bold;">:اسم الشركة</span></td>
+                    </tr>
+                    <tr>
+                        <td width="20%"><span style="font-size:11px;font-weight:bold;"><b>Address:</b></span></td>
+                        <td width="30%" style="font-size:11px;">
+                            <t t-if="receipt.company.name" t-esc="receipt.company.street"/>
+                        </td>
+                        <td width="30%" style="font-size:11px;">
+                            <t t-if="receipt.company.name" t-esc="receipt.company.street"/>
+                        </td>
+                        <td width="20%"><span style="font-size:11px;font-weight:bold;">:العنوان</span></td>
+                    </tr>
+                    <tr>
+                        <td width="20%"><span style="font-size:11px;font-weight:bold;"><b>VAT:</b></span></td>
+                        <td width="30%" style="font-size:11px;">
+                            <t t-if="receipt.company.name" t-esc="receipt.company.vat"/>
+                        </td>
+                        <td width="30%" style="font-size:11px;">
+                            <t t-if="receipt.company.name" t-esc="receipt.company.vat"/>
+                        </td>
+                        <td width="20%"><span style="font-size:11px;font-weight:bold;">:رقم تسجیل ضریبة القیمة المضافة</span></td>
+                    </tr>
+                </table>
+                <br />
+                <table width="100%">
+                    <tr style="border:1px solid black;background-color:#5a5a5a;color:white;">
+                        <th align="center" name="nature_of_goods=" style="text-align:center;font-size:11px;padding: 5px 0;">
+                            <span>Nature of Goods</span><br />
+                            <span>التفاصيل السلع أو الخدمات</span>
+                        </th>
+                        <th align="center" name="unit_price" style="text-align:center;font-size:11px;padding: 3px 0;">
+                            <span>Unit Price</span><br />
+                            <span>سعر الوحدة</span><br />
+                        </th>
+                        <th align="center" name="quantity" style="text-align:center;;font-size:11px;padding: 3px 0;">
+                            <span>Quantity</span><br />
+                            <span>الكمية</span>
+                        </th>
+                        <th align="right" name="item_subtotal" class="second_table" style="text-align:center;;font-size:11px;padding: 3px 0;">
+                            <span>Item Subtotal (Including VAT)</span><br />
+                            <span>المجموع (شامل ضريبة القيمة المضافة) </span><br />
+                        </th>
+                    </tr>
+                    <t t-foreach="receipt.orderlines" t-as="line" t-key="line.id">
+                        <tr>
+                            <td style="text-align:left;;font-size:11px;padding: 3px 0;">
+                                <span t-esc="line.product_name_wrapped[0]"/>
+                            </td>
+                            <td style="text-align:right;;font-size:11px;padding: 3px 0;">
+                              <t t-esc="env.pos.format_currency_no_symbol(line.price)" />
+                            </td>
+                            <td style="text-align:right;;font-size:11px;padding: 3px 0;">
+                              <t t-esc="env.pos.format_currency_no_symbol(line.quantity)"/>
+                            </td>
+                            <td style="text-align:right;;font-size:11px;padding: 3px 0;">
+
+                              <t t-esc="env.pos.format_currency_no_symbol(line.price_with_tax)" />
+
+                            </td>
+                        </tr>
+                    </t>
+                </table>
+                <hr></hr>
+                 <table width="100%">
+                    <tr>
+                        <td width="40%" style="text-align:left;font-size:11px;padding: 5px 0;">
+                            <span>Total Taxable Amount (Excluding VAT)</span>
+                        </td>
+                        <td width="40%" style="text-align:right;font-size:11px;padding: 5px 0;">
+                            <span>إجمالي الخاضع للضريبة )غیر شامل ضریبة القیمة
+( ال </span>
+                        </td>
+                        <td width="20%" style="text-align:right;font-size:11px;padding: 5px 0;">
+                            <span t-esc="env.pos.format_currency(receipt.subtotal)"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td width="40%" style="text-align:left;font-size:11px;padding: 5px 0;">
+                            <span>Total VAT</span>
+                        </td>
+                        <td width="40%" style="text-align:right;font-size:11px;padding: 5px 0;">
+                            <span>مجموع ضریبة القیمة المضافة</span>
+                        </td>
+                        <td width="20%" style="text-align:right;font-size:11px;padding: 5px 0;">
+                            <span t-esc="env.pos.format_currency(receipt.total_tax)" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="40%" style="text-align:left;font-size:11px;padding: 5px 0;">
+                            <span>Total Amount Due</span>
+                        </td>
+                        <td width="40%" style="text-align:right;font-size:11px;padding: 5px 0;">
+                            <span>إجمالي المبلغ المستحق</span>
+                        </td>
+                        <td width="20%" style="text-align:right;font-size:11px;padding: 5px 0;">
+                            <span t-esc="env.pos.format_currency(receipt.subtotal+receipt.total_tax)"/>
+                        </td>
+                    </tr>
+                </table>
+                <hr></hr>
+            </div>
+
+
+            <!-- QR code Data -->
+            <h1 style="display:none;" >
+                <span id="company_name1"><t t-raw="receipt.company.name"/></span>
+                <span id="company_vat1"><t t-raw="receipt.company.vat"/></span>
+                <span id="receipt_date1"><t t-raw="receipt.date.localestring"/></span>
+                <span id="total_tax1"><t t-raw="env.pos.format_currency(receipt.total_tax)"/></span>
+                <span id="total_rounded1"><t t-raw="env.pos.format_currency(receipt.total_rounded)"/></span>
+            </h1>
+
+            <!--  QR Code printing  -->
+
+            <div class="page" style="margin-bottom:30px;text-align:-webkit-center;">
+
+                <div id="qrcode_tax_invoice"></div>
+                <script type="text/javascript">
+                    var qr_string1 = "{'Seller Name':"+$('#company_name1').html().replace('&amp;amp;','AND')+",'Seller VAT No':"+$('#company_vat1').html()+",'Issue Date':"+$('#receipt_date1').html()+",'Total VAT':"+$('#total_tax1').html()+",'Total In. VAT':"+$('#total_rounded1').html()+"}";
+                    var qrcode = new QRCode("qrcode_tax_invoice", {
+                        text: qr_string1,
+                        width: 120,
+                        height: 120,
+                        colorDark : "#000000",
+                        colorLight : "#ffffff",
+                        correctLevel : QRCode.CorrectLevel.H
+                    });
+                </script>
+                <style>
+                    @page { size: auto;  margin: 0mm; }
+                </style>
+            </div>
+
+            <div class="before-footer" />
+
+            <!-- Footer -->
+            <div t-if="receipt.footer_html"  class="pos-receipt-center-align" style="text-align: center;">
+                <t t-raw="receipt.footer_html" />
+            </div>
+
+            <div t-if="!receipt.footer_html and receipt.footer"  class="pos-receipt-center-align" style="white-space:pre-line;text-align: center;">
+                <br/>
+                <t t-esc="receipt.footer" />
+                <br/>
+                <br/>
+            </div>
+
+            <div class="after-footer">
+                <t t-foreach="receipt.paymentlines" t-as="line">
+                    <t t-if="line.ticket">
+                        <br />
+                        <div class="pos-payment-terminal-receipt" style="text-align: center;
+                                                                        font-size: 75%;">
+                            <t t-raw="line.ticket" />
+                        </div>
+                    </t>
+                </t>
+            </div>
+
+            <br/>
+            <div class="pos-receipt-order-data" style="text-align: center;
+                                                        font-size: 75%;">
+                <div><t t-esc="receipt.name" /></div>
+                <div><t t-esc="receipt.date.localestring" /></div>
+            </div>
+            <style>
+                @page { size: auto;  margin: 0mm; }
+            </style>
+        </div>
+    </t>
+
+</templates>

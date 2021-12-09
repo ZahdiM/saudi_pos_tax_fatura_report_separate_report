@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-inherit="point_of_sale.ReceiptScreen" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('actions')]/div[hasclass('buttons')]" position="inside">
+            <!--<div class="button print" t-on-click="printTaxReceipt('qr')">
+                <i class="fa fa-print"></i> Print QR Code
+            </div>-->
+
+            <div class="button print" t-on-click="printTaxReceipt('tax_invoice')">
+                <i class="fa fa-print"></i> Print Tax Invoice
+            </div>
+        </xpath>
+
+        <xpath expr="//div[hasclass('default-view')]//div[hasclass('pos-receipt-container')]" position="after">
+            <div id="div_pos_qr_code" class="pos-receipt-container" style="position: absolute !important;
+                top: 0;
+                left: 0;visibility: visible;
+                background: white !important;
+                color: black !important;flex: 0 1 400px;
+                overflow: auto;display:none;">
+                <TaxReceiptCustom order="currentOrder" t-ref="qr-receipt"/>
+            </div>
+        </xpath>
+
+        <xpath expr="//div[hasclass('default-view')]//div[hasclass('pos-receipt-container')]" position="after">
+            <div id="div_tax_receipt" class="pos-receipt-container"
+                 style="flex: 0 1 400px;
+                        overflow: auto;
+                        font-size: 0.75em;
+                        text-align: center;
+                        direction: ltr;display:none;">
+                <TaxInvoiceReceipt order="currentOrder" t-ref="tax-invoice-receipt"/>
+            </div>
+        </xpath>
+
+    </t>
+</templates>

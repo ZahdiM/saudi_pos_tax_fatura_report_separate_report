@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="template" xml:space="preserve">
+
+    <t t-name="OrderTaxReceipt" owl="1">
+
+            <div class="pos-receipt" style="text-align: left;
+                width: 300px;
+                background-color: white;
+                margin: 20px;
+                padding: 15px;
+                font-size: 16px;
+                padding-bottom:30px;
+                display: inline-block;
+                border: solid 1px rgb(220,220,220);
+                border-radius: 3px;
+                overflow: hidden;margin: 0 !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+                border: none !important;
+                font-size: 13px !important;
+                width: 266px !important;">
+            <t t-if="receipt.company.logo">
+                <img style="width: 50%;
+                    display: block;
+                    margin: 0 auto;" class="pos-receipt-logo" t-att-src="receipt.company.logo" alt="Logo"/>
+                <br/>
+            </t>
+            <t t-if="!receipt.company.logo">
+                <h2  style="text-align: center;" class="pos-receipt-center-align">
+                    <t t-esc="receipt.company.name" />
+                </h2>
+                <br/>
+            </t>
+            <div  class="pos-receipt-contact" style="text-align: center;
+                        font-size: 75%;">
+                <t t-if="receipt.company.contact_address">
+                    <div><t t-esc="receipt.company.contact_address" /></div>
+                </t>
+                <t t-if="receipt.company.phone">
+                    <div>Tel:<t t-esc="receipt.company.phone" /></div>
+                </t>
+                <t t-if="receipt.company.vat">
+                    <div><t t-esc="receipt.company.vat_label"/>:<t t-esc="receipt.company.vat" /></div>
+                </t>
+                <t t-if="receipt.company.email">
+                    <div><t t-esc="receipt.company.email" /></div>
+                </t>
+                <t t-if="receipt.company.website">
+                    <div><t t-esc="receipt.company.website" /></div>
+                </t>
+                <t t-if="receipt.header_html">
+                    <t t-raw="receipt.header_html" />
+                </t>
+                <t t-if="!receipt.header_html and receipt.header">
+                    <div><t t-esc="receipt.header" /></div>
+                </t>
+                <t t-if="receipt.cashier">
+                    <div class="cashier">
+                        <div>--------------------------------</div>
+                        <div>Served by <t t-esc="receipt.cashier" /></div>
+                    </div>
+                </t>
+            </div>
+            <br /><br />
+
+            <!-- Orderlines -->
+            <h1 style="display:none;" >
+                <span id="company_name"><t t-raw="receipt.company.name"/></span>
+                <span id="company_vat"><t t-raw="receipt.company.vat"/></span>
+                <span id="receipt_date"><t t-raw="receipt.date.localestring"/></span>
+                <span id="total_tax"><t t-raw="env.pos.format_currency(receipt.total_tax)"/></span>
+                <span id="total_rounded"><t t-raw="env.pos.format_currency(receipt.total_rounded)"/></span>
+            </h1>
+
+                <!--<input type="text" t-att-value="{'Seller Name:'#{receipt.company.name},'Seller Vat':#{receipt.company.vat},'Issue Date':receipt.date.localestring,'Total Vat':env.pos.format_currency(receipt.total_tax), 'Total Amount Due':env.pos.format_currency(receipt.total_rounded)}" id="qr_string"></input>-->
+
+            <div class="page" style="margin-bottom:30px;text-align:-webkit-center;">
+
+                <div id="qrcode"></div>
+                <script type="text/javascript">
+                    var company_name = $('#company_name').html();
+                    var company_vat = $('#company_vat').html();
+                    var receipt_date = $('#receipt_date').html();
+                    var total_tax = $('#total_tax').html();
+                    var total_rounded = $('#total_rounded').html();
+                    var qr_string= "{'Seller Name':"+company_name.replace('&amp;amp;','AND')+",'Seller VAT No':"+company_vat+",'Issue Date':"+receipt_date+",'Total VAT':"+total_tax+",'Total In. VAT':"+total_rounded+"}";
+                var qrcode = new QRCode("qrcode", {
+                    text: qr_string,
+                    width: 180,
+                    height: 180,
+                    colorDark : "#000000",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.H
+                });
+                </script>
+                <style>
+                    @page { size: auto;  margin: 0mm; }
+                </style>
+            </div>
+            <!-- Subtotal -->
+
+
+
+
+            <div class="before-footer" />
+
+            <!-- Footer -->
+            <div t-if="receipt.footer_html" style="text-align: center;"  class="pos-receipt-center-align">
+                <t t-raw="receipt.footer_html" />
+            </div>
+
+            <div t-if="!receipt.footer_html and receipt.footer"   class="pos-receipt-center-align" style="white-space:pre-line;text-align:center;">
+                <br/>
+                <t t-esc="receipt.footer" />
+                <br/>
+                <br/>
+            </div>
+
+            <div class="after-footer">
+                <t t-foreach="receipt.paymentlines" t-as="line">
+                    <t t-if="line.ticket">
+                        <br />
+                        <div class="pos-payment-terminal-receipt" style="text-align: center;
+    font-size: 75%;">
+                            <t t-raw="line.ticket" />
+                        </div>
+                    </t>
+                </t>
+            </div>
+
+            <br/>
+            <div class="pos-receipt-order-data" style="text-align: center;
+    font-size: 75%;">
+                <div><t t-esc="receipt.name" /></div>
+                <div><t t-esc="receipt.date.localestring" /></div>
+            </div>
+
+        </div>
+    </t>
+
+</templates>
