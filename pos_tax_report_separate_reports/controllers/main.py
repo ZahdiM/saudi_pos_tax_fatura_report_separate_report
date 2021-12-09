@@ -10,7 +10,7 @@ from odoo.exceptions import ValidationError
 
 class POSReports(http.Controller):
 
-    @http.route(['/pos_reports/get_invoice_number'], type='json', auth="public", methods=['POST'], website=True, csrf=False)
+    @http.route(['/pos_tax_report_separate_reports/get_invoice_number'], type='json', auth="public", methods=['POST'], website=True, csrf=False)
     def get_invoice_number(self, pos_reference_number):
         """This route is called when changing quantity from the cart or adding
         a product from the wishlist."""

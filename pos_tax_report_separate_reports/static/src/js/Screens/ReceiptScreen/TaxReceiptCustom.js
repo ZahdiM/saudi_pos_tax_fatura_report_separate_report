@@ -1,4 +1,4 @@
-odoo.define('pos_reports.TaxReceiptCustom', function(require) {
+odoo.define('pos_tax_report_separate_reports.TaxReceiptCustom', function(require) {
     'use strict';
 
     const PosComponent = require('point_of_sale.PosComponent');

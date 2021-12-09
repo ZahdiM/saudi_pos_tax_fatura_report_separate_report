@@ -1,4 +1,4 @@
-odoo.define('pos_reports.TaxInvoiceReceipt', function(require) {
+odoo.define('pos_tax_report_separate_reports.TaxInvoiceReceipt', function(require) {
     'use strict';
 
     const PosComponent = require('point_of_sale.PosComponent');
@@ -13,7 +13,7 @@ odoo.define('pos_reports.TaxInvoiceReceipt', function(require) {
         }
         /*set_invoice_number(pos_reference){
             this.rpc({
-                    'route': '/pos_reports/get_invoice_number',
+                    'route': '/pos_tax_report_separate_reports/get_invoice_number',
                     'params': {
                         'pos_reference_number': pos_reference,
                     },
