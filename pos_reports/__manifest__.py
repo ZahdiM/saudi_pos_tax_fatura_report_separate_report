@@ -36,6 +36,7 @@
         'static/src/xml/Screens/ReceiptScreen/TaxInvoiceReceipt.xml',
         'static/src/xml/Screens/ReceiptScreen/ReceiptScreen.xml',
     ],
+    "images": ['static/description/Banner.png'],
     'installable': True,
     'auto_install': False,
     'application': True,
