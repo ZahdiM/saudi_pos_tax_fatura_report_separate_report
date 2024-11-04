@@ -40,6 +40,4 @@
     'installable': True,
     'auto_install': False,
     'application': True,
-    'price': 29.80,
-    'currency': 'USD',
 }
