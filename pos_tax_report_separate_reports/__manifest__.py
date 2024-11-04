@@ -24,7 +24,7 @@
     # Author
     'author': 'Mediod Consulting Pvt. Ltd.',
     'website': 'http://www.mediodconsulting.com/',
-    'maintainer': 'Mediod Consulting Pvt. Ltd.',
+    'maintainer': 'Zahid Mehmood',
     'depends': ['point_of_sale'],
     'data': [
         'views/pos_assets_common.xml',
